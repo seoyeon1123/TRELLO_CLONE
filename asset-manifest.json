@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/seoyeon1123/TRELLO_CLONE.git/static/js/main.850b21d4.chunk.js",
-    "main.js.map": "/seoyeon1123/TRELLO_CLONE.git/static/js/main.850b21d4.chunk.js.map",
-    "runtime-main.js": "/seoyeon1123/TRELLO_CLONE.git/static/js/runtime-main.c86bd784.js",
-    "runtime-main.js.map": "/seoyeon1123/TRELLO_CLONE.git/static/js/runtime-main.c86bd784.js.map",
-    "static/js/2.d8a8dcbe.chunk.js": "/seoyeon1123/TRELLO_CLONE.git/static/js/2.d8a8dcbe.chunk.js",
-    "static/js/2.d8a8dcbe.chunk.js.map": "/seoyeon1123/TRELLO_CLONE.git/static/js/2.d8a8dcbe.chunk.js.map",
-    "index.html": "/seoyeon1123/TRELLO_CLONE.git/index.html",
-    "static/js/2.d8a8dcbe.chunk.js.LICENSE.txt": "/seoyeon1123/TRELLO_CLONE.git/static/js/2.d8a8dcbe.chunk.js.LICENSE.txt"
+    "main.js": "/TRELLO_CLONE/static/js/main.850b21d4.chunk.js",
+    "main.js.map": "/TRELLO_CLONE/static/js/main.850b21d4.chunk.js.map",
+    "runtime-main.js": "/TRELLO_CLONE/static/js/runtime-main.dac89912.js",
+    "runtime-main.js.map": "/TRELLO_CLONE/static/js/runtime-main.dac89912.js.map",
+    "static/js/2.02d8512b.chunk.js": "/TRELLO_CLONE/static/js/2.02d8512b.chunk.js",
+    "static/js/2.02d8512b.chunk.js.map": "/TRELLO_CLONE/static/js/2.02d8512b.chunk.js.map",
+    "index.html": "/TRELLO_CLONE/index.html",
+    "static/js/2.02d8512b.chunk.js.LICENSE.txt": "/TRELLO_CLONE/static/js/2.02d8512b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.c86bd784.js",
-    "static/js/2.d8a8dcbe.chunk.js",
+    "static/js/runtime-main.dac89912.js",
+    "static/js/2.02d8512b.chunk.js",
     "static/js/main.850b21d4.chunk.js"
   ]
 }
