@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/TRELLO_CLONE/static/js/main.850b21d4.chunk.js",
-    "main.js.map": "/TRELLO_CLONE/static/js/main.850b21d4.chunk.js.map",
+    "main.js": "/TRELLO_CLONE/static/js/main.a6951cb9.chunk.js",
+    "main.js.map": "/TRELLO_CLONE/static/js/main.a6951cb9.chunk.js.map",
     "runtime-main.js": "/TRELLO_CLONE/static/js/runtime-main.dac89912.js",
     "runtime-main.js.map": "/TRELLO_CLONE/static/js/runtime-main.dac89912.js.map",
-    "static/js/2.02d8512b.chunk.js": "/TRELLO_CLONE/static/js/2.02d8512b.chunk.js",
-    "static/js/2.02d8512b.chunk.js.map": "/TRELLO_CLONE/static/js/2.02d8512b.chunk.js.map",
+    "static/js/2.a9cd1e06.chunk.js": "/TRELLO_CLONE/static/js/2.a9cd1e06.chunk.js",
+    "static/js/2.a9cd1e06.chunk.js.map": "/TRELLO_CLONE/static/js/2.a9cd1e06.chunk.js.map",
     "index.html": "/TRELLO_CLONE/index.html",
-    "static/js/2.02d8512b.chunk.js.LICENSE.txt": "/TRELLO_CLONE/static/js/2.02d8512b.chunk.js.LICENSE.txt"
+    "static/js/2.a9cd1e06.chunk.js.LICENSE.txt": "/TRELLO_CLONE/static/js/2.a9cd1e06.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.dac89912.js",
-    "static/js/2.02d8512b.chunk.js",
-    "static/js/main.850b21d4.chunk.js"
+    "static/js/2.a9cd1e06.chunk.js",
+    "static/js/main.a6951cb9.chunk.js"
   ]
 }
