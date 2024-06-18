@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { authService } from './firebase';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   position: absolute;
@@ -45,7 +46,7 @@ const Input = styled.input`
   }
 `;
 
-const P = styled.p`
+const Sub = styled.p`
   text-align: end;
 `;
 
@@ -59,6 +60,16 @@ const Button = styled.button`
   &:active {
     font-size: 15px;
   }
+`;
+
+const P = styled.p`
+  margin-top: 50px;
+  margin-bottom: 0;
+  font-family: 'Gowun Batang';
+`;
+
+const Span = styled.span`
+  color: #ffc700;
 `;
 
 const SignUp = () => {
@@ -114,7 +125,7 @@ const SignUp = () => {
           placeholder="Email"
           required
         />
-        <P>Please enter your Password</P>
+        <Sub>Please enter your Password</Sub>
         <Input
           type="password"
           value={password}
@@ -123,10 +134,16 @@ const SignUp = () => {
           required
         />
         <Button type="submit">회원가입</Button>
+        <P>
+          이미 회원가입을 하셨나요?
+          <Link to="/TRELLO_CLONE/Login">
+            <Span> 로그인하기 </Span>
+          </Link>
+        </P>
       </Form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </Container>
   );
 };
 
-export default SignUp;
+export default React.memo(SignUp);

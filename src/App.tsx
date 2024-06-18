@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -23,6 +23,7 @@ const Header = styled.header`
 const NowDate = styled.div`
   text-align: center;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.bgColor};
 `;
 
 const Wrapper = styled.div`
@@ -85,6 +86,13 @@ const Input = styled.input`
   }
 `;
 
+const Button = styled.button`
+  padding: 10px;
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.boardColor};
+  border-radius: 20px;
+`;
+
 interface IForm {
   addToDo: string;
 }
@@ -93,9 +101,18 @@ const App = () => {
   const [toDos, setTodos] = useRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const [isToggled, setIsToggled] = useRecoilState(isDarkAtom);
-  const DateNow = Date.now();
-  const formattedDate = new Date(DateNow).toLocaleString();
+  const [formattedDate, setFormattedDate] = useState<string>(() =>
+    new Date().toLocaleString()
+  );
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFormattedDate(new Date().toLocaleString());
+    }, 1000); // 1초마다 시간 업데이트
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 클리어
+  }, []);
 
   const toggleTheme = () => {
     setIsToggled((prev) => !prev);
@@ -186,13 +203,14 @@ const App = () => {
             onClick={toggleTheme}
             icon={isToggled ? faToggleOn : faToggleOff}
           />
-          <button onClick={onClickLogOut}>LogOut</button>
+          <NowDate>{formattedDate}</NowDate>
+          <Button onClick={onClickLogOut}>LogOut</Button>
         </Header>
 
         <Wrapper>
           <FormInput>
             <Title>What To Do Today?</Title>
-            <NowDate>{formattedDate}</NowDate>
+
             <form onSubmit={handleSubmit(onValid)}>
               <Input
                 {...register('addToDo', {
