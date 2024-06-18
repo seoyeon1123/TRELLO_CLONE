@@ -9,8 +9,8 @@ import { toDoState } from '../atoms';
 import ModalAllDelete from './ModalAllDelete';
 
 const Container = styled.div`
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   position: fixed;
   right: 10px;
   bottom: 35px;

@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import { RecoilRoot, useRecoilValue } from 'recoil'; // useRecoilValue 추가
 import { darkTheme, lightTheme } from './theme';
 import { ThemeProvider } from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { isDarkAtom } from './atoms';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './Router';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+VIC:wght@100..400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -29,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    font-family: "Gloria Hallelujah", cursive;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
@@ -41,6 +43,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
+    font-family: "Architects Daughter", cursive;
+ 
   }
   menu, ol, ul {
     list-style: none;
@@ -61,8 +65,8 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-weight: 300;
-    font-family: "Playwrite AU VIC", cursive, "Gowun Batang", serif;
+    font-weight: 400;
+    font-family: "Architects Daughter", cursive;
     background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
     line-height: 1.2;
@@ -79,16 +83,18 @@ const ThemedApp = () => {
   return (
     <ThemeProvider theme={isLight ? lightTheme : darkTheme}>
       <GlobalStyle />
-      <App />
+      <Router />
     </ThemeProvider>
   );
 };
 
 ReactDOM.render(
   <React.StrictMode>
-    <RecoilRoot>
-      <ThemedApp />
-    </RecoilRoot>
+    <BrowserRouter>
+      <RecoilRoot>
+        <ThemedApp />
+      </RecoilRoot>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

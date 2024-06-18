@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import DeleteBoard from './Component/DeleteBoard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
+import { signOut } from 'firebase/auth'; // Firebase에서 signOut 함수 임포트
+import { authService } from './Login/firebase';
 
 const Header = styled.header`
   height: 60px;
@@ -16,6 +18,11 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const NowDate = styled.div`
+  text-align: center;
+  margin-bottom: 10px;
 `;
 
 const Wrapper = styled.div`
@@ -86,12 +93,26 @@ const App = () => {
   const [toDos, setTodos] = useRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const [isToggled, setIsToggled] = useRecoilState(isDarkAtom);
+  const DateNow = Date.now();
+  const formattedDate = new Date(DateNow).toLocaleString();
+  const [error, setError] = useState('');
 
   const toggleTheme = () => {
     setIsToggled((prev) => !prev);
   };
 
-  // const nowDate = Date.now();
+  const onClickLogOut = async () => {
+    setError('');
+
+    try {
+      await signOut(authService);
+      console.log('User logged out');
+      // 로그아웃 후 필요한 추가 작업을 수행할 수 있습니다.
+    } catch (error) {
+      setError((error as Error).message);
+      console.error('Error logging out:', error);
+    }
+  };
 
   const onValid = ({ addToDo }: IForm) => {
     if (Object.keys(toDos).length >= 3) {
@@ -165,11 +186,13 @@ const App = () => {
             onClick={toggleTheme}
             icon={isToggled ? faToggleOn : faToggleOff}
           />
+          <button onClick={onClickLogOut}>LogOut</button>
         </Header>
 
         <Wrapper>
           <FormInput>
             <Title>What To Do Today?</Title>
+            <NowDate>{formattedDate}</NowDate>
             <form onSubmit={handleSubmit(onValid)}>
               <Input
                 {...register('addToDo', {

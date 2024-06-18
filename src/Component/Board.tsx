@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'Gowun Batang', serif;
+  font-family: 'Architects Daughter', cursive;
 `;
 
 const Title = styled.h2`
