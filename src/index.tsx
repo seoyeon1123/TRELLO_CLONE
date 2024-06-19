@@ -5,12 +5,18 @@ import { darkTheme, lightTheme } from './theme';
 import { ThemeProvider } from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { isDarkAtom } from './atoms';
-import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './Router';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+@font-face {
+    font-family: 'Ownglyph_ryurue-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryurue-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+ 
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -30,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: "Gloria Hallelujah", cursive;
+    
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
@@ -43,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
-    font-family: "Architects Daughter", cursive;
+    
  
   }
   menu, ol, ul {
@@ -65,12 +71,13 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
+    font-family: 'Ownglyph_ryurue-Rg';
     font-weight: 400;
-    font-family: "Architects Daughter", cursive;
     background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
     line-height: 1.2;
   }
+
   a {
     text-decoration: none;
     color: inherit;

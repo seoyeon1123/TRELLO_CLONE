@@ -7,6 +7,7 @@ import { useSetRecoilState } from 'recoil';
 import { ITodo } from '../atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 
 const Wrapper = styled.div`
   width: 300px;
@@ -18,14 +19,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'Architects Daughter', cursive;
 `;
 
 const Title = styled.h2`
   text-align: center;
   font-weight: 600;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 22px;
   margin-right: auto;
   color: ${(props) => props.theme.boardtextColor};
 `;
@@ -58,6 +58,7 @@ const Input = styled.input`
   text-align: center;
   border-style: none;
   background-color: '#DC8686';
+  font-size: 18px;
 
   height: 30px;
 
@@ -70,7 +71,7 @@ const Input = styled.input`
   }
 
   &::placeholder {
-    font-family: 'Gowun Batang', serif;
+    font-family: 'Ownglyph_ryurue-Rg';
   }
 `;
 
@@ -140,7 +141,7 @@ const Board = ({ boardId, toDos }: IBoardProps) => {
           <Input
             {...register('toDo', { required: true })}
             type="text"
-            placeholder={`Add task on ${boardId}`}
+            placeholder={`적어봐! "${boardId}" 의 할일을!`}
           />
         </Form>
         <Droppable droppableId={boardId}>
@@ -169,4 +170,4 @@ const Board = ({ boardId, toDos }: IBoardProps) => {
     </>
   );
 };
-export default Board;
+export default React.memo(Board);

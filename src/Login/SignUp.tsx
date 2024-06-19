@@ -19,7 +19,6 @@ const Container = styled.div`
   height: 450px;
   color: ${(props) => props.theme.boardtextColor};
   border-radius: 20px;
-  font-family: 'Architects Daughter', cursive;
 `;
 
 const Title = styled.h1`
@@ -27,10 +26,10 @@ const Title = styled.h1`
 `;
 
 const Form = styled.form`
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   padding: 10px;
+  margin-top: 15px;
 `;
 
 const Input = styled.input`
@@ -43,6 +42,9 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
+  }
+  &::placeholder {
+    font-family: 'Ownglyph_ryurue-Rg';
   }
 `;
 
@@ -60,12 +62,13 @@ const Button = styled.button`
   &:active {
     font-size: 15px;
   }
+  font-family: 'Ownglyph_ryurue-Rg';
 `;
 
 const P = styled.p`
   margin-top: 50px;
   margin-bottom: 0;
-  font-family: 'Gowun Batang';
+  font-size: 20px;
 `;
 
 const Span = styled.span`
@@ -115,9 +118,9 @@ const SignUp = () => {
 
   return (
     <Container>
-      <Title>Sign Up</Title>
+      <Title>회원가입</Title>
       <Form onSubmit={handleSignUp}>
-        <P>Please enter your email</P>
+        <Sub>너의 이메일을 입력해줘</Sub>
         <Input
           type="email"
           value={email}
@@ -125,7 +128,7 @@ const SignUp = () => {
           placeholder="Email"
           required
         />
-        <Sub>Please enter your Password</Sub>
+        <Sub>너의 비밀번호를 입력해줘</Sub>
         <Input
           type="password"
           value={password}

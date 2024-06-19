@@ -76,4 +76,4 @@ const Card = ({ toDoText, toDoId, index, boardId }: ICardProps) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

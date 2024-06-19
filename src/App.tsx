@@ -8,8 +8,13 @@ import { useForm } from 'react-hook-form';
 import DeleteBoard from './Component/DeleteBoard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
-import { signOut } from 'firebase/auth'; // Firebase에서 signOut 함수 임포트
-import { authService } from './Login/firebase';
+import { signOut } from 'firebase/auth';
+import {
+  authService,
+  getUserUid,
+  saveTodos,
+  loadTodos,
+} from './Login/firebase';
 
 const Header = styled.header`
   height: 60px;
@@ -41,7 +46,7 @@ const CustomFontAwesomeIcon = styled(FontAwesomeIcon)`
   font-size: 50px;
   cursor: pointer;
   color: ${(props) => props.theme.toggle};
-  margin: 0;
+  margin-left: 20px;
   z-index: 1;
   margin-left: 10px;
 `;
@@ -68,7 +73,6 @@ const Title = styled.h1`
   text-align: center;
   margin-bottom: 10px;
   color: ${(props) => props.theme.textColor};
-  font-family: 'Playwrite AU VIC', cursive;
 `;
 
 const Input = styled.input`
@@ -82,7 +86,7 @@ const Input = styled.input`
   background-color: rgb(233, 233, 233);
 
   &::placeholder {
-    font-family: 'Gowun Batang', serif;
+    font-family: 'Ownglyph_ryurue-Rg';
   }
 `;
 
@@ -91,6 +95,9 @@ const Button = styled.button`
   background-color: ${(props) => props.theme.bgColor};
   color: ${(props) => props.theme.boardColor};
   border-radius: 20px;
+  font-family: 'Ownglyph_ryurue-Rg';
+  font-size: 18px;
+  margin-right: 10px;
 `;
 
 interface IForm {
@@ -104,7 +111,7 @@ const App = () => {
   const [formattedDate, setFormattedDate] = useState<string>(() =>
     new Date().toLocaleString()
   );
-  const [error, setError] = useState('');
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -114,19 +121,39 @@ const App = () => {
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 클리어
   }, []);
 
+  useEffect(() => {
+    // 사용자가 로그인한 후에 Firestore에서 투두리스트를 불러옵니다.
+    const fetchData = async () => {
+      try {
+        const uid = await getUserUid();
+        setUserId(uid);
+        const userTodos = await loadTodos(uid);
+        setTodos(userTodos);
+      } catch (error) {
+        console.error('Error loading todos:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // 투두리스트가 변경될 때마다 Firestore에 저장합니다.
+    if (userId) {
+      saveTodos(userId, toDos);
+    }
+  }, [userId, toDos]);
+
   const toggleTheme = () => {
     setIsToggled((prev) => !prev);
   };
 
   const onClickLogOut = async () => {
-    setError('');
-
     try {
       await signOut(authService);
       console.log('User logged out');
-      // 로그아웃 후 필요한 추가 작업을 수행할 수 있습니다.
+      setUserId(null); // 로그아웃 후 userId 초기화
     } catch (error) {
-      setError((error as Error).message);
       console.error('Error logging out:', error);
     }
   };
@@ -204,19 +231,19 @@ const App = () => {
             icon={isToggled ? faToggleOn : faToggleOff}
           />
           <NowDate>{formattedDate}</NowDate>
-          <Button onClick={onClickLogOut}>LogOut</Button>
+          <Button onClick={onClickLogOut}>로그아웃</Button>
         </Header>
 
         <Wrapper>
           <FormInput>
-            <Title>What To Do Today?</Title>
+            <Title>오늘의 너의 하루는?</Title>
 
             <form onSubmit={handleSubmit(onValid)}>
               <Input
                 {...register('addToDo', {
                   required: true,
                 })}
-                placeholder="Create New Board"
+                placeholder="새로운 보드판을 만들어 봐!"
               />
             </form>
           </FormInput>

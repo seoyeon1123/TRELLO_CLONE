@@ -20,6 +20,7 @@ const ModalContent = styled.div`
   min-width: 300px; /* 최소 너비 설정 */
   min-height: 100px; /* 최소 높이 설정 */
   text-align: center; /* 텍스트 중앙 정렬 */
+  font-size: 30px;
 `;
 
 const Button = styled.button`
@@ -28,10 +29,11 @@ const Button = styled.button`
   color: ${(props) => props.theme.boardtextColor};
   border-radius: 20px;
   border: 1px solid ${(props) => props.theme.boardColor};
-  font-size: 15px;
+  font-size: 20px;
   padding: 5px 10px;
   margin-top: 10px;
   cursor: pointer; /* 포인터 커서 추가 */
+  font-family: 'Ownglyph_ryurue-Rg';
 `;
 
 interface IModalProps {
@@ -48,9 +50,9 @@ const ModalAllDelete = ({ onClose, onConfirm }: IModalProps) => {
   return (
     <ModalWrapper onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <p>Are you sure you want to delete everything?</p>
-        <Button onClick={handleConfirm}>OK</Button>
-        <Button onClick={onClose}>Cancel</Button>
+        <p>모두 삭제해도 괜찮아 ?</p>
+        <Button onClick={handleConfirm}>응!</Button>
+        <Button onClick={onClose}>아니..</Button>
       </ModalContent>
     </ModalWrapper>
   );

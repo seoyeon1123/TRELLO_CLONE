@@ -25,13 +25,15 @@ const Container = styled.div`
   height: 450px;
   color: ${(props) => props.theme.boardtextColor};
   border-radius: 20px;
-  font-family: 'Architects Daughter', cursive;
 `;
 
 const Title = styled.h1`
   margin-top: 20px;
-  font-size: 60px;
-  font-family: 'Architects Daughter', cursive;
+  font-size: 30px;
+`;
+
+const Strong = styled.strong`
+  font-size: 80px;
 `;
 
 const Form = styled.form`
@@ -52,6 +54,10 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    font-family: 'Ownglyph_ryurue-Rg';
+  }
 `;
 
 const Button = styled.button`
@@ -64,6 +70,7 @@ const Button = styled.button`
   &:active {
     font-size: 15px;
   }
+  font-family: 'Ownglyph_ryurue-Rg';
 `;
 
 const GoogleBtn = styled(Button)`
@@ -83,15 +90,15 @@ const GoogleIcon = styled.img`
 
 const Hr = styled.hr`
   width: 80%;
-  margin: 20px 0;
+  margin: 10px 0;
   border: none;
   border-top: 1px solid ${(props) => props.theme.boardtextColor};
 `;
 
 const P = styled.p`
-  margin-top: 50px;
-  margin-bottom: 0;
-  font-family: 'Gowun Batang';
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 20px;
 `;
 
 const Span = styled.span`
@@ -160,7 +167,10 @@ const Login = () => {
 
   return (
     <Container>
-      <Title>ToDoBoard</Title>
+      <Title>
+        <Strong>오</Strong>늘 <Strong>너</Strong>의 <Strong>하</Strong>루는
+        <Strong>?</Strong>
+      </Title>
       <Form onSubmit={handleLogin}>
         <Input
           type="email"
