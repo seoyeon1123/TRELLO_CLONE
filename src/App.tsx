@@ -9,12 +9,7 @@ import DeleteBoard from './Component/DeleteBoard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
 import { signOut } from 'firebase/auth';
-import {
-  authService,
-  getUserUid,
-  saveTodos,
-  loadTodos,
-} from './Login/firebase';
+import { auth, getUserUid, saveTodos, loadTodos } from './Login/firebase'; // Use correct import
 
 const Header = styled.header`
   height: 60px;
@@ -28,6 +23,7 @@ const Header = styled.header`
 const NowDate = styled.div`
   text-align: center;
   margin-bottom: 10px;
+  font-size: 18px;
   color: ${(props) => props.theme.bgColor};
 `;
 
@@ -37,8 +33,8 @@ const Wrapper = styled.div`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vh;
+  height: 100vh; /* 화면 높이를 뷰포트 100%로 제한 */
+  width: 100h;
   position: relative;
 `;
 
@@ -69,7 +65,7 @@ const FormInput = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 50px;
+  font-size: 60px;
   text-align: center;
   margin-bottom: 10px;
   color: ${(props) => props.theme.textColor};
@@ -78,12 +74,13 @@ const Title = styled.h1`
 const Input = styled.input`
   width: 500px;
   height: 32px;
-  font-size: 15px;
+  font-size: 20px;
   border: 0;
   border-radius: 15px;
   outline: none;
   padding-left: 10px;
   background-color: rgb(233, 233, 233);
+  font-family: 'Ownglyph_ryurue-Rg';
 
   &::placeholder {
     font-family: 'Ownglyph_ryurue-Rg';
@@ -104,7 +101,7 @@ interface IForm {
   addToDo: string;
 }
 
-const App = () => {
+const App: React.FC = () => {
   const [toDos, setTodos] = useRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const [isToggled, setIsToggled] = useRecoilState(isDarkAtom);
@@ -126,16 +123,18 @@ const App = () => {
     const fetchData = async () => {
       try {
         const uid = await getUserUid();
-        setUserId(uid);
-        const userTodos = await loadTodos(uid);
-        setTodos(userTodos);
+        if (uid) {
+          setUserId(uid);
+          const userTodos = await loadTodos(uid);
+          setTodos(userTodos);
+        }
       } catch (error) {
         console.error('Error loading todos:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [setTodos]);
 
   useEffect(() => {
     // 투두리스트가 변경될 때마다 Firestore에 저장합니다.
@@ -150,7 +149,7 @@ const App = () => {
 
   const onClickLogOut = async () => {
     try {
-      await signOut(authService);
+      await signOut(auth);
       console.log('User logged out');
       setUserId(null); // 로그아웃 후 userId 초기화
     } catch (error) {

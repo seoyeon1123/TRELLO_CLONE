@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { authService } from './firebase';
+import { auth } from './firebase';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
+// Styled components for the main container and form
 const Container = styled.div`
   position: absolute;
   top: 50%;
@@ -39,6 +41,7 @@ const Input = styled.input`
   background-color: white;
   margin-bottom: 10px;
   border-radius: 10px;
+  font-family: 'Ownglyph_ryurue-Rg';
 
   &:focus {
     outline: none;
@@ -75,6 +78,32 @@ const Span = styled.span`
   color: #ffc700;
 `;
 
+// Custom styled-components for SweetAlert2 modals
+const StyledSweetAlertContainer = styled.div`
+  .swal2-popup {
+    background-color: ${(props) => props.theme.boardColor};
+  }
+
+  .swal2-title {
+    color: ${(props) => props.theme.boardtextColor};
+  }
+
+  .swal2-content {
+    color: ${(props) => props.theme.boardtextColor};
+  }
+
+  .swal2-confirm {
+    background-color: ${(props) => props.theme.bgColor};
+    color: ${(props) => props.theme.boardColor};
+    border-radius: 10px;
+    padding: 10px 20px;
+    &:hover {
+      background-color: ${(props) => props.theme.boardColor};
+      color: ${(props) => props.theme.bgColor};
+    }
+  }
+`;
+
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -86,15 +115,21 @@ const SignUp = () => {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
-        authService,
+        auth,
         email,
         password
       );
+
+      Swal.fire({
+        title: '회원가입 성공',
+        text: '회원가입에 성공하셨습니다.',
+        confirmButtonColor: '#4CAF50',
+        background: '#fff',
+        backdrop: '#F1E5D1',
+      });
       console.log('User signed up:', userCredential.user);
       setEmail('');
       setPassword('');
-      window.alert('회원가입에 성공하셨습니다.');
-      await authService.signOut(); // 회원가입 후 사용자를 로그아웃시킴
     } catch (error: any) {
       switch (error.code) {
         case 'auth/email-already-in-use':
@@ -145,6 +180,7 @@ const SignUp = () => {
         </P>
       </Form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <StyledSweetAlertContainer />
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
-import { authService, googleProvider } from './firebase';
+import { auth, googleProvider } from './firebase';
 import {
   User,
   signInWithEmailAndPassword,
@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import styled from 'styled-components';
 import googleIcon from '../google_icon.png';
+import { saveTodos, loadTodos } from './firebase';
 
 const Container = styled.div`
   position: absolute;
@@ -50,6 +51,7 @@ const Input = styled.input`
   background-color: white;
   margin-bottom: 5px;
   border-radius: 10px;
+  font-family: 'Ownglyph_ryurue-Rg';
 
   &:focus {
     outline: none;
@@ -83,9 +85,9 @@ const GoogleBtn = styled(Button)`
   align-items: center;
 `;
 
-const GoogleIcon = styled.img`
-  width: 30px; /* 이미지 크기 조정 */
-  margin-right: 10px; /* 이미지와 버튼 텍스트 사이 간격 조정 */
+const GoogleIconImg = styled.img`
+  width: 30px;
+  margin-right: 10px;
 `;
 
 const Hr = styled.hr`
@@ -113,7 +115,7 @@ const Login = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(authService, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
 
@@ -126,17 +128,38 @@ const Login = () => {
 
     try {
       const userCredential = await signInWithEmailAndPassword(
-        authService,
+        auth,
         email,
         password
       );
       setUser(userCredential.user);
       console.log('User logged in:', userCredential.user);
+
+      // 사용자 데이터 불러오기
+      const userTodos = await loadTodos(userCredential.user.uid);
+      console.log('User Todos:', userTodos);
+
+      // 사용자 데이터 Firestore에 저장
+      await saveTodos(userCredential.user.uid, userTodos);
+
       resetForm(); // 로그인 후 이메일과 비밀번호 초기화
       history.push('/TRELLO_CLONE/ToDoBoard'); // 로그인 성공 후 ToDoBoard로 리디렉션
     } catch (error) {
-      setError((error as Error).message);
-      console.error('Error logging in:', error);
+      const errorMessage = (error as Error).message;
+      switch (errorMessage) {
+        case 'auth/user-not-found':
+          setError('등록되지 않은 사용자입니다. 이메일을 확인해 주세요.');
+          break;
+        case 'auth/wrong-password':
+          setError('잘못된 비밀번호입니다. 다시 시도해 주세요.');
+          break;
+        case 'auth/invalid-email':
+          setError('유효하지 않은 이메일 주소입니다. 다시 입력해 주세요.');
+          break;
+        default:
+          setError('로그인 중 오류가 발생했습니다. 다시 시도해 주세요.');
+          console.error('Error logging in:', error);
+      }
     }
   };
 
@@ -144,9 +167,17 @@ const Login = () => {
     setError('');
 
     try {
-      const result = await signInWithPopup(authService, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
       setUser(result.user);
       console.log('User signed in with Google:', result.user);
+
+      // Google 로그인 성공 후 사용자 데이터 불러오기
+      const userTodos = await loadTodos(result.user.uid);
+      console.log('User Todos:', userTodos);
+
+      // 사용자 데이터 Firestore에 저장
+      await saveTodos(result.user.uid, userTodos);
+
       history.push('/TRELLO_CLONE/ToDoBoard'); // Google 로그인 성공 후 ToDoBoard로 리디렉션
     } catch (error) {
       setError((error as Error).message);
@@ -191,7 +222,7 @@ const Login = () => {
       <Hr />
 
       <GoogleBtn onClick={handleGoogleLogin}>
-        <GoogleIcon src={googleIcon} alt="Google Icon" />
+        <GoogleIconImg src={googleIcon} alt="Google Icon" />
         Login with Google
       </GoogleBtn>
       <P>

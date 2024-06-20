@@ -1,25 +1,52 @@
+// Router.tsx
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 import Login from './Login/Login';
 import SignUp from './Login/SignUp';
 import App from './App';
-import { authService } from './Login/firebase';
+import { auth } from './Login/firebase'; // Import auth from firebase
+
 import { onAuthStateChanged } from 'firebase/auth';
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const LoadingText = styled.p`
+  font-size: 50px;
+  font-weight: bold;
+  color: #333;
+`;
 
 const Router = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(authService, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
       } else {
         setLoggedIn(false);
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <LoadingText>Loading...</LoadingText>
+      </LoadingContainer>
+    );
+  }
 
   return (
     <BrowserRouter>

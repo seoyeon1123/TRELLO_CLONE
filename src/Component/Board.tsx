@@ -59,6 +59,7 @@ const Input = styled.input`
   border-style: none;
   background-color: '#DC8686';
   font-size: 18px;
+  font-family: 'Ownglyph_ryurue-Rg';
 
   height: 30px;
 
