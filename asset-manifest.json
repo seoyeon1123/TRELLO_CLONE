@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/TRELLO_CLONE/static/js/main.abb0c3d4.chunk.js",
-    "main.js.map": "/TRELLO_CLONE/static/js/main.abb0c3d4.chunk.js.map",
+    "main.js": "/TRELLO_CLONE/static/js/main.f691a7ef.chunk.js",
+    "main.js.map": "/TRELLO_CLONE/static/js/main.f691a7ef.chunk.js.map",
     "runtime-main.js": "/TRELLO_CLONE/static/js/runtime-main.dac89912.js",
     "runtime-main.js.map": "/TRELLO_CLONE/static/js/runtime-main.dac89912.js.map",
-    "static/js/2.632dcd68.chunk.js": "/TRELLO_CLONE/static/js/2.632dcd68.chunk.js",
-    "static/js/2.632dcd68.chunk.js.map": "/TRELLO_CLONE/static/js/2.632dcd68.chunk.js.map",
+    "static/js/2.92455263.chunk.js": "/TRELLO_CLONE/static/js/2.92455263.chunk.js",
+    "static/js/2.92455263.chunk.js.map": "/TRELLO_CLONE/static/js/2.92455263.chunk.js.map",
     "index.html": "/TRELLO_CLONE/index.html",
-    "static/js/2.632dcd68.chunk.js.LICENSE.txt": "/TRELLO_CLONE/static/js/2.632dcd68.chunk.js.LICENSE.txt",
+    "static/js/2.92455263.chunk.js.LICENSE.txt": "/TRELLO_CLONE/static/js/2.92455263.chunk.js.LICENSE.txt",
     "static/media/google_icon.9db27c10.png": "/TRELLO_CLONE/static/media/google_icon.9db27c10.png"
   },
   "entrypoints": [
     "static/js/runtime-main.dac89912.js",
-    "static/js/2.632dcd68.chunk.js",
-    "static/js/main.abb0c3d4.chunk.js"
+    "static/js/2.92455263.chunk.js",
+    "static/js/main.f691a7ef.chunk.js"
   ]
 }
