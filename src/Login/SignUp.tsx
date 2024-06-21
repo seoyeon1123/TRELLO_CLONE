@@ -121,8 +121,8 @@ const SignUp = () => {
       );
 
       Swal.fire({
-        title: '회원가입 성공',
-        text: '회원가입에 성공하셨습니다.',
+        title: '회원가입에 성공하셨습니다!',
+        text: '메인페이지로 이동할게요 쓩 ~',
         confirmButtonColor: '#4CAF50',
         background: '#fff',
         backdrop: '#F1E5D1',

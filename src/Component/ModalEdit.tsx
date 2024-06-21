@@ -76,7 +76,6 @@ const ModalEdit = ({ toDoText, toDoId, boardId, onClose }: IModal) => {
       setValue('');
     }
   };
-
   return (
     <>
       <ModalWrapper onClick={onClose}>
